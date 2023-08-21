@@ -6,7 +6,7 @@ import {
   HttpStatus,
   Post,
 } from '@nestjs/common';
-import { UserDto } from 'src/dtos';
+import { UserDto } from './user.dto';
 import { UserService } from './user.service';
 
 @Controller()

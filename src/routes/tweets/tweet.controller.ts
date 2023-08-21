@@ -1,5 +1,5 @@
+import { TweetDto } from './tweet.dto';
 import { Controller, Post, Body, HttpStatus, HttpCode, Get, Query, HttpException, Param } from '@nestjs/common';
-import { TweetDto } from 'src/dtos';
 import { TweetService } from './tweet.service';
 
 

@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { Tweet, User } from 'src/entities';
+import { Tweet } from './tweet.entity';
 import { UserService } from '../users/user.service';
+import { User } from '../users/user.entity';
 
 @Injectable()
 export class TweetService {
