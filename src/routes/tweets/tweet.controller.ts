@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpStatus, HttpCode } from '@nestjs/common';
+import { Controller, Post, Body, HttpStatus, HttpCode, Get, Query, HttpException, Param } from '@nestjs/common';
 import { TweetDto } from 'src/dtos';
 import { TweetService } from './tweet.service';
 
@@ -7,12 +7,30 @@ import { TweetService } from './tweet.service';
 export class TweetController {
   constructor(private readonly tweetService: TweetService) {}
 
-  @HttpCode(HttpStatus.CREATED)
   @Post()
+  @HttpCode(HttpStatus.CREATED)
   createTweet(@Body() data: TweetDto) {
     const tweet = this.tweetService.createTweet(data);
     return {
     tweet,
     };
+  }
+
+  @Get()
+  @HttpCode(HttpStatus.OK)
+  getTweets(@Query('page') page: number) {
+    if (page <= 0) {
+      throw new HttpException('This page is invalid', HttpStatus.BAD_REQUEST);
+    }
+
+    const tweets = this.tweetService.getPage(page);
+    return tweets;
+  }
+
+  @Get(':username')
+  @HttpCode(HttpStatus.OK)
+  getUserTweets(@Param('username') username: string) {
+    const tweets = this.tweetService.getUserTweets(username);
+    return tweets;
   }
 }
